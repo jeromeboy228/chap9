@@ -28,5 +28,4 @@ void swap(double *n1, double *n2, double *n3)
             *n2 = temp;
         }
     }
-    printf("in swap %lf %lf %lf\n", *n1, *n2, *n3);
 }
