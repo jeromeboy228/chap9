@@ -1,5 +1,6 @@
 #include <stdio.h>
-void three_pigs(double *, double *, double *);
+#include <iso646.h>
+void swap(double *, double *, double *);
 
 int main(int argc, char const *argv[])
 {
@@ -7,23 +8,25 @@ int main(int argc, char const *argv[])
     printf("Введите три переменные для их последующего упорядочивания\n");
     scanf("%lf %lf %lf", &n1, &n2, &n3);
     printf("числа для обработки %.2lf %.2lf %.2lf\n", n1, n2, n3);
-    three_pigs(&n1, &n2, &n3);
+    swap(&n1, &n2, &n3);
     printf("Ввод значений %.2lf %.2lf %.2lf\n", n1, n2, n3);
     return 0;
 }
 
-void three_pigs(double *n1, double *n2, double *n3)
+void swap(double *n1, double *n2, double *n3)
 {
-    double *temp;
-    /*     printf("%lf\n", *n1);
-    printf("%p\n", n1); //str 363
- */
-    while ((*n1 < *n2) && (*n2 < *n3) && (*n1 < *n3))
+    double temp;         // мне тут не нужен указатель кароч
+    while (!(*n1 < *n2)) // тут просто сравниваю содержимое ячеек(тех что в main)
     {
-        temp = n3;
-        n3 = n2;
-        n2 = n1;
-        n1 = temp;
-        three_pigs(n1, n2, n3);
+        temp = *n1; // и просто меняю их местами
+        *n1 = *n2;  // те значения на которые указывают
+        *n2 = temp; // указатели
+        while (!(*n2 < *n3))
+        {
+            temp = *n3;
+            *n3 = *n2;
+            *n2 = temp;
+        }
     }
+    printf("in swap %lf %lf %lf\n", *n1, *n2, *n3);
 }
